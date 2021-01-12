@@ -22,8 +22,8 @@ public class NewsServiceImpl implements NewsService {
 
     @Override
     public TranslateResponse getTranslated(TranslateRequest translateRequest) {
-        String clientId = "Zo1vTslyKxKYskf_qfUk";//애플리케이션 클라이언트 아이디값";
-        String clientSecret = "X5kGpbWEbv";//애플리케이션 클라이언트 시크릿값";
+        String clientId = "tvDckJTnWNqIP3H9jElS";//애플리케이션 클라이언트 아이디값";
+        String clientSecret = "IrAEnWgMm7";//애플리케이션 클라이언트 시크릿값";
 
         String apiURL = "https://openapi.naver.com/v1/papago/n2mt";
 
