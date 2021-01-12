@@ -22,8 +22,8 @@ public class NewsServiceImpl implements NewsService {
 
     @Override
     public TranslateResponse getTranslated(TranslateRequest translateRequest) {
-        String clientId = "Lm6AY8QBy7cISOmNlGHi";//애플리케이션 클라이언트 아이디값";
-        String clientSecret = "V75lfkmPvT";//애플리케이션 클라이언트 시크릿값";
+        String clientId = "fW3fMr9j5XKKjl6LSwef";//애플리케이션 클라이언트 아이디값";
+        String clientSecret = "QmrV3S8GsV";//애플리케이션 클라이언트 시크릿값";
 
         String apiURL = "https://openapi.naver.com/v1/papago/n2mt";
 
@@ -43,6 +43,8 @@ public class NewsServiceImpl implements NewsService {
 
         String[] return_desc = post(apiURL, requestHeaders, description).split("\"");
         String[] return_title = post(apiURL, requestHeaders, title).split("\"");
+
+        System.out.println(post(apiURL, requestHeaders, description));
 
         TranslateResponse translateResponse = TranslateResponse.builder()
                 .title(return_title[27])
