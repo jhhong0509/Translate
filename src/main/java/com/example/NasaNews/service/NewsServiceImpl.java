@@ -1,5 +1,6 @@
 package com.example.NasaNews.service;
 
+import com.example.NasaNews.payload.request.TranslateRequest;
 import com.example.NasaNews.payload.response.TranslateResponse;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
@@ -19,15 +20,18 @@ import java.util.Map;
 public class NewsServiceImpl implements NewsService {
 
     @Override
-    public TranslateResponse getTranslated(String description, String title) {
+    public TranslateResponse getTranslated(TranslateRequest translateRequest) {
         String clientId = "Lm6AY8QBy7cISOmNlGHi";//애플리케이션 클라이언트 아이디값";
         String clientSecret = "V75lfkmPvT";//애플리케이션 클라이언트 시크릿값";
 
         String apiURL = "https://openapi.naver.com/v1/papago/n2mt";
 
+        String description = null;
+        String title = null;
+
         try {
-            description = URLEncoder.encode(description, "UTF-8");
-            title = URLEncoder.encode(title, "UTF-8");
+            description = URLEncoder.encode(translateRequest.getDescription(), "UTF-8");
+            title = URLEncoder.encode(translateRequest.getTitle(), "UTF-8");
         } catch (UnsupportedEncodingException e) {
             throw new RuntimeException("인코딩 실패", e);
         }
@@ -41,8 +45,6 @@ public class NewsServiceImpl implements NewsService {
                 .description(post(apiURL, requestHeaders, title))
                 .build();
 
-        System.out.println(translateResponse.getDescription());
-        System.out.println(translateResponse.getTitle());
         return translateResponse;
     }
 
