@@ -1,5 +1,6 @@
 package com.example.NasaNews.service;
 
+import com.example.NasaNews.payload.response.TranslateResponse;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
@@ -18,15 +19,15 @@ import java.util.Map;
 public class NewsServiceImpl implements NewsService {
 
     @Override
-    public String getTranslated(String content) {
+    public TranslateResponse getTranslated(String description, String title) {
         String clientId = "Lm6AY8QBy7cISOmNlGHi";//애플리케이션 클라이언트 아이디값";
         String clientSecret = "V75lfkmPvT";//애플리케이션 클라이언트 시크릿값";
 
         String apiURL = "https://openapi.naver.com/v1/papago/n2mt";
-        String text;
 
         try {
-            text = URLEncoder.encode(content, "UTF-8");
+            description = URLEncoder.encode(description, "UTF-8");
+            title = URLEncoder.encode(title, "UTF-8");
         } catch (UnsupportedEncodingException e) {
             throw new RuntimeException("인코딩 실패", e);
         }
@@ -35,9 +36,12 @@ public class NewsServiceImpl implements NewsService {
         requestHeaders.put("X-Naver-Client-Id", clientId);
         requestHeaders.put("X-Naver-Client-Secret", clientSecret);
 
-        String responseBody = post(apiURL, requestHeaders, text);
+        TranslateResponse translateResponse = TranslateResponse.builder()
+                .title(post(apiURL, requestHeaders, description))
+                .description(post(apiURL, requestHeaders, title))
+                .build();
 
-        return responseBody;
+        return translateResponse;
     }
 
     private static String post(String apiUrl, Map<String, String> requestHeaders, String text){

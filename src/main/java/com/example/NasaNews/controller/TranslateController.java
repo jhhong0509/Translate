@@ -1,5 +1,6 @@
 package com.example.NasaNews.controller;
 
+import com.example.NasaNews.payload.response.TranslateResponse;
 import com.example.NasaNews.service.NewsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,7 +14,8 @@ public class TranslateController {
     private final NewsService newsService;
 
     @GetMapping("/news")
-    public String translateNews(@RequestParam("description") String description) {
-        return newsService.getTranslated(description);
+    public TranslateResponse translateNews(@RequestParam("description") String description,
+                                           @RequestParam("title") String title) {
+        return newsService.getTranslated(description,title);
     }
 }

@@ -1,5 +1,7 @@
 package com.example.NasaNews.service;
 
+import com.example.NasaNews.payload.response.TranslateResponse;
+
 public interface NewsService {
-    String getTranslated(String content);
+    TranslateResponse getTranslated(String description, String title);
 }
