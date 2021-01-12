@@ -41,6 +41,8 @@ public class NewsServiceImpl implements NewsService {
                 .description(post(apiURL, requestHeaders, title))
                 .build();
 
+        System.out.println(translateResponse.getDescription());
+        System.out.println(translateResponse.getTitle());
         return translateResponse;
     }
 
