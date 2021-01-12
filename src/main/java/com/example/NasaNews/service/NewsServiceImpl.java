@@ -2,6 +2,7 @@ package com.example.NasaNews.service;
 
 import com.example.NasaNews.payload.request.TranslateRequest;
 import com.example.NasaNews.payload.response.TranslateResponse;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
@@ -40,9 +41,12 @@ public class NewsServiceImpl implements NewsService {
         requestHeaders.put("X-Naver-Client-Id", clientId);
         requestHeaders.put("X-Naver-Client-Secret", clientSecret);
 
+        String[] return_desc = post(apiURL, requestHeaders, description).split("\"");
+        String[] return_title = post(apiURL, requestHeaders, title).split("\"");
+
         TranslateResponse translateResponse = TranslateResponse.builder()
-                .title(post(apiURL, requestHeaders, description))
-                .description(post(apiURL, requestHeaders, title))
+                .title(return_title[27])
+                .description(return_desc[27])
                 .build();
 
         return translateResponse;
